@@ -1,7 +1,7 @@
-# Comprehensive Docker Compose Guide for Students
+# Docker Compose Guide 
 
 ## Overview
-This guide will walk you through the process of using Docker Compose to manage a multi-container application consisting of a PostgreSQL database, PgAdmin for database management, a FastAPI application, and Nginx as a reverse proxy.
+A simple guide for using Docker Compose to manage a multi-container application consisting of a PostgreSQL database, PgAdmin for database management, a FastAPI application, and Nginx as a reverse proxy.
 
 ## Prerequisites
 - Ensure Docker and Docker Compose are installed on your computer.

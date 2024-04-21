@@ -2,6 +2,7 @@ import pytest
 from app.dependencies import get_settings
 from app.services.user_service import UserService
 from app.models.user_model import User
+from datetime import timedelta
 
 pytestmark = pytest.mark.asyncio
 
@@ -16,6 +17,69 @@ async def test_create_user_with_valid_data(db_session):
     assert user is not None
     assert user.username == user_data["username"]
     assert user.email == user_data["email"]
+
+# Test password reset with a locked account
+async def test_reset_password_with_locked_account(db_session, locked_user):
+    new_password = "NewPassword123!"
+    reset_success = await UserService.reset_password(db_session, locked_user.id, new_password)
+    assert reset_success is True
+
+# Test for email verification with invalid user ID
+async def test_verify_email_with_invalid_user_id(db_session):
+    invalid_user_id = "non-existent-id"
+    updated_user = await UserService.verify_email(db_session, invalid_user_id)
+    assert updated_user is False
+
+# Test for account unlock with invalid user ID
+async def test_unlock_user_account_with_invalid_user_id(db_session):
+    invalid_user_id = "non-existent-id"
+    unlock_success = await UserService.unlock_user_account(db_session, invalid_user_id)
+    assert unlock_success is False
+
+# Test for listing users with a limit exceeding upper bound of total users
+async def test_list_users_with_excessive_limit(db_session, users_with_same_role_50_users):
+    excessive_limit = 100
+    users = await UserService.list_users(db_session, skip=0, limit=excessive_limit)
+    assert len(users) == 50  # Should return all 50 users, not exceed the limit
+
+'''
+# Test for listing users with a negative limit or skip
+async def test_list_users_with_invalid_pagination(db_session):
+    negative_limit = -10
+    users = await UserService.list_users(db_session, skip=0, limit=negative_limit)
+    assert users is None
+
+    negative_skip = -10
+    users = await UserService.list_users(db_session, skip=negative_skip, limit=10)
+    assert users is None
+'''
+
+'''
+# Test for login with expired password or unchanged for a given period of time
+async def test_login_with_expired_password(db_session, user):
+    # Set the password to expire after a certain period of time
+    await UserService.update_password_expiration(db_session, user.id, expires_in=timedelta(days=-1))
+    logged_in_user = await UserService.login_user(db_session, user.username, "MySuperPassword$1234")
+    assert logged_in_user is None
+'''
+
+# Test for login with a previously used password - - - - - - - Not Working - - - - - - - 
+async def test_login_with_previously_used_password(db_session, user):
+    # Set the initial password
+    initial_password = "InitialPassword123!"
+    update_data = {"password": initial_password}
+    await UserService.update(db_session, user.id, update_data)
+
+     # Try to reset the password to the initial password
+    reset_success = await UserService.reset_password(db_session, user.id, initial_password)
+    assert reset_success is False  # Should return False because it's a previously used password
+
+# Test for login with verified email
+async def test_login_with_verified_and_unverified_email(db_session, user):
+    # Verify the email
+    await UserService.verify_email(db_session, user.id)
+    logged_in_user = await UserService.login_user(db_session, user.username, "MySuperPassword$1234")
+    assert logged_in_user is not None
 
 # Test for creating a user with invalid data
 async def test_create_user_with_invalid_data(db_session):
@@ -158,3 +222,13 @@ async def test_unlock_user_account(db_session, locked_user):
     await UserService.unlock_user_account(db_session, locked_user.id)
     is_locked = await UserService.is_account_locked(db_session, locked_user.username)
     assert not is_locked, "The account should be unlocked after calling unlock_user_account."
+
+# Test for duplicate data between users
+async def test_duplicate_data_between_users(db_session, user):
+    duplicate_user_data = {
+        "username": user.username,
+        "email": user.email,
+        "password": "DuplicatePassword123!",
+    }
+    duplicate_user = await UserService.create(db_session, duplicate_user_data)
+    assert duplicate_user is None

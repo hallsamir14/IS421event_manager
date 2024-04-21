@@ -133,9 +133,11 @@ class UserService:
 
     @classmethod
     async def reset_password(cls, session: AsyncSession, user_id: UUID, new_password: str) -> bool:
-        hashed_password = hash_password(new_password)
-        user = await cls.get_by_id(session, user_id)
+        user = await cls.get_by_id(session, user_id) 
         if user:
+            if hash_password(new_password) == user.hashed_password:
+                return False  # New password is the same as the previous password
+            hashed_password = hash_password(new_password)
             user.hashed_password = hashed_password
             user.failed_login_attempts = 0  # Resetting failed login attempts
             user.is_locked = False  # Unlocking the user account, if locked

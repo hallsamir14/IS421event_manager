@@ -31,7 +31,9 @@ services:
       - app-network
 
   fastapi:
-    build: .
+    build:
+      context: .
+      network: host
     volumes:
       - ./:/myapp/
     depends_on:
