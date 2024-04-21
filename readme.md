@@ -1,27 +1,3 @@
-# Event Manager Company: Software QA Analyst/Developer Onboarding Assignment
-
-Welcome to the Event Manager Company! As a newly hired Software QA Analyst/Developer and a graduate student in software engineering, you are embarking on an exciting journey to contribute to our project aimed at developing a secure, robust REST API that supports JWT token-based OAuth2 authentication. This API serves as the backbone of our user management system and will eventually expand to include features for event management and registration.
-
-## Assignment Objectives
-
-1. **Familiarize with REST API functionality and structure**: Gain hands-on experience working with a REST API, understanding its endpoints, request/response formats, and authentication mechanisms.
-
-2. **Implement and refine documentation**: Critically analyze and improve existing documentation based on issues identified in the instructor videos. Ensure that the documentation is up-to-date and accurately reflects the current state of the software.
-
-3. **Engage in manual and automated testing**: Develop comprehensive test cases and leverage automated testing tools like pytest to push the project's test coverage towards 90%. Gain experience with different types of testing, such as unit testing, integration testing, and end-to-end testing.
-
-4. **Explore and debug issues**: Dive deep into the codebase to investigate and resolve issues related to user profile updates and OAuth token generation. Utilize debugging tools, interpret error messages, and trace the flow of execution to identify the root cause of problems.
-
-5. **Collaborate effectively**: Experience the power of collaboration using Git for version control and GitHub for code reviews and issue tracking. Work with issues, branches, create pull requests, and merge code while following best practices.
-
-## Setup and Preliminary Steps
-
-1. **Fork the Project Repository**: Fork the [project repository](https://github.com/yourusername/event_manager) to your own GitHub account. This creates a copy of the repository under your account, allowing you to work on the project independently.
-
-2. **Clone the Forked Repository**: Clone the forked repository to your local machine using the `git clone` command. This creates a local copy of the repository on your computer, enabling you to make changes and run the project locally.
-
-3. **Verify the Project Setup**: Follow the steps in the instructor video to set up the project using [Docker](https://www.docker.com/). Docker allows you to package the application with all its dependencies into a standardized unit called a container. Verify that you can access the API documentation at `http://localhost/docs` and the database using [PGAdmin](https://www.pgadmin.org/) at `http://localhost:5050`.
-
 ## Testing and Database Management
 
 1. **Explore the API**: Use the Swagger UI at `http://localhost/docs` to familiarize yourself with the API endpoints, request/response formats, and authentication mechanisms. Swagger UI provides an interactive interface to explore and test the API endpoints.
@@ -50,30 +26,8 @@ In this assignment, you will identify, document, and resolve five specific issue
 
 Additionally, you will resolve a sixth issue demonstrated in the instructor video. These issues will test various combinations and scenarios to simulate real-world usage and potential edge cases. By addressing these specific issues, you will gain experience in identifying and resolving common challenges in API development.
 
-## Submission Requirements
-
-To complete this assignment, submit the following:
-
-1. **GitHub Repository Link**: Ensure that your repository is well-organized and includes:
-  - Links to five closed issues, each with accompanying test code and necessary application code modifications.
-  - Each issue should be well-documented, explaining the problem, the steps taken to resolve it, and the outcome. Proper documentation helps others understand your work and facilitates future maintenance.
-  - All issues should be merged into the main branch, following the Git workflow and best practices.
-
-2. **Updated README**: Replace the existing README with:
-  - Links to the closed issues, providing easy access to your work.
-  - Link to project image deployed to Dockerhub.
-  - A 2-3 paragraph reflection on what you learned from this assignment, focusing on both technical skills and collaborative processes. Reflect on the challenges you faced, the solutions you implemented, and the insights you gained. This reflection helps solidify your learning and provides valuable feedback for improving the assignment in the future.
-
-## Grading Rubric
-
-| Criteria                                                                                                                | Points |
-|-------------------------------------------------------------------------------------------------------------------------|--------|
-| Resolved 5 issues related to username validation, password validation, and profile field edge cases                      | 30     |
-| Resolved the issue demonstrated in the instructor video                                                                 | 20     |
-| Increased test coverage to 90% by writing comprehensive test cases                                                      | 20     |
-| Followed collaborative development practices using Git and GitHub (branching, pull requests, code reviews)              | 15     |
-| Submitted a well-organized GitHub repository with clear documentation, links to closed issues, and a reflective summary | 15     |
-| **Total**                                                                                                               | **100**|
+## Latest Docker Image:
+https://hub.docker.com/repository/docker/hallsamir14/is421event_manager-fastapi
 
 ## Resources and Documentation
 
@@ -94,9 +48,6 @@ To complete this assignment, submit the following:
 
  - API Documentation: `http://localhost/docs` - The Swagger UI documentation for the API, providing information on endpoints, request/response formats, and authentication.
  - Database Management: `http://localhost:5050` - The PGAdmin interface for managing the PostgreSQL database, allowing you to view and manipulate the database tables.
-
-- **Code Documentation**:
- The project codebase includes docstrings and comments explaining various concepts and functionalities. Take the time to read through the code and understand how different components work together. Pay attention to the structure of the code, the naming conventions used, and the purpose of each function or class. Understanding the existing codebase will help you write code that is consistent and integrates well with the project.
 
 - **Additional Resources**:
  - [SQLAlchemy Library](https://www.sqlalchemy.org/) - SQLAlchemy is a powerful SQL toolkit and Object-Relational Mapping (ORM) library for Python. It provides a set of tools for interacting with databases, including query building, database schema management, and data serialization. Familiarize yourself with SQLAlchemy's documentation to understand how it is used in the project for database operations.
